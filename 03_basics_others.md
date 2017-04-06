@@ -153,6 +153,26 @@ And then you will see that weird **underscore, _**
 
 This underscore means **wildcard**. So, **| _ -> fibonacci (x - 1) + fibonacci (x - 2)** means "if x is the others (not 0 nor 1), then call fibonacci function recursively calculate the value, and return that value.
 
+Here's the entire code for Fibonacci function :monkey:
+```
+module Fibonacci
+open System
+
+let rec fibonacci x = 
+	match x with
+		| 0 -> 1 
+		| 1 -> 1
+		| _ -> fibonacci (x - 1) + fibonacci (x - 2)
+
+[<EntryPoint>]
+
+printfn "fibonacci 5: %A" (fibonacci 5)
+```
+And it will give you the output of:
+```
+fibonacci 5: 8
+```
+
 You can use these features (rec, wildcard and match & with keywords) to implement many other things :smile:
 
 Yeah, that's it for this session. Thank you! and see you in the next session :wink::v:
