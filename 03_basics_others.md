@@ -128,4 +128,31 @@ a = 10 // Wrong, but try
 ```
 As I said, = is used to show equality. So, a = 10 means a is equal to 10. However, the value inside a is initially 1. So, 1 = 10 will give a boolean, **false**. Which is what we did not expected.
 
-#### 5) How to define a recursive function
+#### 5) How to define a recursive function / How to use match with keywords
+In Python or Java, you do not need to explicitly say that a function is recursive if you want to make a function as a recursive function. But in F#, you need to declare that the function is going to be **recursive** if you want to make it so. You need to use a key word **rec** right after **let** like this:
+```
+let rec fibonacci x = 
+	match x with 
+	| 0 -> 1
+	| 1 -> 1
+	| _ -> fibonacci (x - 1) + fibonacci (x - 2)
+	
+printf "fibonacci 5: %A" (fibonacci 5)
+```
+Yeah this is one of the famous examples of recursive function, Fibonacci sequence. As you can see it is declared as **rec**. There are some points that I want to explain in this code. 
+
+**match x with |**
+
+This is a smiliar to ** switch (x): case ** in Java. Let's have a closer look one bit by bit. **match x with** means "Look at the value inside x and see if it matches one of cases that I am going to list below". And there are some statements with **|** (pipe - or OR). 
+
+** | 0 -> 1 ** means "if x is 0, then return 1". Same as the next line. 
+
+** | 1 -> 1 ** means "if x is 1, then return 1".
+
+And then you will see that weird **underscore, _**
+
+This underscore means **wildcard**. So, **| _ -> fibonacci (x - 1) + fibonacci (x - 2)** means "if x is the others (not 0 nor 1), then call fibonacci function recursively calculate the value, and return that value.
+
+You can use these features (rec, wildcard and match & with keywords) to implement many other things :smile:
+
+Yeah, that's it for this session. Thank you! and see you in the next session :wink::v:
