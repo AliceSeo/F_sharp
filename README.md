@@ -4,4 +4,4 @@ Currently I am learning F# at the university and since this is quite new program
 
 I hope this repository helps you learn F# after you finish reading this whole thing. And I also hope I learn a lot by typing the learning contents. I have never done this before but I always have a thought of willing to create a summary note like this.
 
-Well, Good luck! (and good luck to me too! :joy:)
+Well, Good luck! (and wish me luck too please! :joy:)
