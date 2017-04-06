@@ -3,7 +3,7 @@
 In this session, we will learn other basic practical stuffs for F# programming. 
 
 #### 1) How to write comments in F#
-In Java, we are using // for single line comment and /*  */ for multiple line comment. In F#, we are using the same thing for the single line comment, but for multiple lines, we use ** (\*  \*) **. Here's example.
+In Java, we are using // for single line comment and /*  */ for multiple line comment. In F#, we are using the same thing for the single line comment, but for multiple lines, we use (*  *). Here's example.
 ```
 (* This can be a multi-line comment *)
 (* Like 
