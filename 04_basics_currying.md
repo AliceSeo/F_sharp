@@ -67,13 +67,112 @@ You might think that add_integer_to_3 is just a **normal** function which takes 
 
 This is quite handy since you do not need to build a every single function to calculate different values addition. For example, if you need to calculate a series of values which are sum of input and 1, sum of input and 2, sum of input and 3, sum of input and 4. Are you going to write 4 functions to solve this? No. You just need to use add_integers and loop those values (1,2,3,4) through the function. Efficient!
 
-#### 3) Other examples
+#### 3) Other example
 Now we will look at some other examples of other types of inputs and outputs.
 ```
 let add_floats (x:float) (y:float) : float = x + y
 
 printfn "add_floats 1.0 2.0: %f" (add_floats 1.0 2.0)
 ```
-Note: One thing I need to mention here before I keep on going is: Arithmetic operations (such as +) are defaulted as int operations. If you want to make it possible to calculate other types, you have to declare it explicitly as I have shown in the last session, [03_basics_others](https://github.com/AliceSeo/F_sharp/blob/master/03_basics_others.md) That's why I have explicitly declared them float, float and float.
+Note: One thing I need to mention here before I keep on going is: Arithmetic operations (such as +) are defaulted as int operations. If you want to make it possible to calculate other types, you have to declare it explicitly as I have shown in the last session, [03_basics_others](https://github.com/AliceSeo/F_sharp/blob/master/03_basics_others.md) That's why I have explicitly declared them float. But as I said in the last session, it is okay to declare only one's type among one of its parameters or its return value like this.
+```
+let add_floats (x:float) y = x + y // declare x type only
+let add_floats x (y:float) = x + y // declare y type only
+let add_floats x y : float = x + y // declare return type only
+```
+They are all the same.:+1:
 
+Same thing applies. add_floats takes the first parameter x and returns a function which will take the second parameter and return the sum of those two parameters. So, if you do this:
+```
+let add_floats (x:float) y = x + y 
+printfn "add_floats 1.0 2.0 f: %f" (add_floats 1.0 2.0) 
+printfn "add_floats 1.0 2.0 .1f: %.1f" (add_floats 1.0 2.0)
+```
+You will get this:
+```
+add_floats 1.0 2.0 f: 3.000000
 
+add_floats 1.0 2.0 .1f: 3.0
+```
+Note that if you do "%f" to print out float, you will get a floating point number with many decimal places but you can specify the number of decimal places by doing this:
+```
+"%.1f"
+```
+where .1f means "I only want to see 1 dp float result"
+
+#### 4) And more examples
+Now we are going to do a divison by floating point number. We will see the correct, easy example first.
+##### (1) float -> float -> float
+```
+let find_average x y = (x+y)/2.0
+
+printfn "%A" (find_average 3.0 4.0) // This is the same as printfn "%A" ((find_average 3.0 ) 4.0)
+```
+
+So, there is a function called **find_average** which is taking one parameter x, 3.0 and returns a function like this:
+
+(This is just a visualization of the result, function's name is not the same as its looks)
+```
+find_average' y = (3.0 + y)/2.0
+```
+This retured function will take the second parameter y then it will return the floating point value. So the signature of this function is **find_average: float -> float -> float**
+
+Note that although you did not specify the type of one of parameters or the returned value, F# automatically infers that it will be all floats. How?
+
+Look at the first line of the code:
+```
+let find_average x y = (x+y)/2.0
+```
+It has been defined already by doing this. Notice that there is 2.0. This is a float literal and it is the starting point of inference. **2.0 is a float literal -> x+y will also be float (because it is involved in a calculation using a float) -> a is float and b is also float. Also + here is the float addition.**
+
+And so, this code:
+```
+let find_average x y = (x+y)/2.0
+
+printfn "%A" (find_average 3.0 4.0)
+```
+will give the output of:
+```
+3.5
+```
+as expected.
+
+##### (2) int -> float -> float :question::question::question:
+
+Then, what if we do like this?
+```
+let find_average x y = (x+y)/2
+
+printfn "%A" (find_average 3.0 4.0)
+```
+According to the inference process of F#, 
+
+2 is an **int** literal -> x+y will also be **int** (because it is involved in a calculation using an int) -> **a is int** and **b is also int**. Also + here is the int **addition**.
+It was expecting the domain of integer. However, it is given 2 floats (3.0 and 4.0). So it will give you an error like this:
+
+> The type 'int' does not match the type 'float'
+
+##### (3) int -> int -> int
+
+Then, what if we do like this?
+```
+let find_average x y = (x+y)/2
+
+printfn "%A" (find_average 3 4)
+```
+Again, according to the inference process of F#, 
+
+2 is an **int** literal -> x+y will also be **int** (because it is involved in a calculation using an int) -> **a is int** and **b is also int**. Also + here is the int **addition**.
+It was expecting the domain of integer and integers are given! :anguished:
+
+You may think like this: "How is it possible to have an integer return if you do (3+4)/2?? It is 3.5 and it is float!"
+
+But F# thinks differently. It will give:
+```
+3
+```
+Yes, it respects the rule. Once It infers that the return value will be an int due to existence of 2 in the function, it will just give you int value as return although it seems not correct.
+
+To sum up, in F# there is no automatic conversion allowed. **Only same types can be used during the calculation!**
+
+Okay, that's it for this session. Thank you! and see you in the next session :v::stuck_out_tongue:
