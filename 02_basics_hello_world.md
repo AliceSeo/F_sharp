@@ -63,6 +63,8 @@ For "%A", you do not need to specify the type of value. So, it will be quite han
 
 What if you give a wrong type after printf? Well, once you run it the F# compiler will immediately say 
 > The type 'you gave' is not compatible with 'the actual type of value to print out'
+and throw an compilation error :joy:
+The compiler checks if the given % format specifications are **format compatible**.
 
 So, you need to give a correct type. (Again, if you are not sure about the type, just use "%A" if you don't want to be interrupted by the compiler)
 
