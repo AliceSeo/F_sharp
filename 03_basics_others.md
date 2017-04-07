@@ -92,7 +92,14 @@ You can explicitly type the domain and the range of that function like this:
 ```
 let increment (x:int):int = x + 1
 ```
-Within the parenthesis, we specify the type of the parameter, x and right after the closing bracket, we specify the type of output with :. But even if you do this you cannot mismatch the domain and its range like this:
+Within the parenthesis, we specify the type of the parameter, x and right after the closing bracket, we specify the type of output with :. You can also just do like this:
+```
+let increment (x:int) = x + 1 // declare that input is integer
+let increment x:int = x + 1 // declare that its output is integer
+```
+Above example, it only declares the type of either input or output but this is also acceptable. This is because F# infers like this: "(Reading the first line)Ok, it said its input is integer, then its output must be an integer too!" or other way around.
+
+But even if you do this you cannot mismatch the domain and its range like this:
 ```
 let increment(x:int):float = x + 1.0
 printfn "%f" (increment 3)
